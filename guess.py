@@ -1,13 +1,6 @@
 import random
 import time
 
-#Set up the game enviroment/welcome message
-print ('Welcome to Number Guess \nThe aim of the game is to guess 3 random numbers')
-
-
-
-
-
 #Define 3 random numbers to be the answer and get product of the 3 number
 
 def number_generator():
@@ -17,8 +10,6 @@ def number_generator():
     global answer_product
     answer_product = num0 * num1 * num2
     print('The product of the 3 Secret Numbers is: ' + str(answer_product))
-
-
 
 #take user guess for all 3 numbers and check if guess is numbers 
 
@@ -30,7 +21,7 @@ def user_guess():
             guess_product = int(guess0) * int(guess1) * int(guess2)
             print('You Guessed ' + str(guess0) + ', ' + str(guess1)+ ', '  + str(guess2))
             print("Checking Answer...")
-            time.sleep(1)
+            time.sleep(.5)
             return False
         except:
             print('Please Enter only numbers')
@@ -38,25 +29,26 @@ def user_guess():
             
 #check users guess aganist the correct answers
 
-def guess_check():
-    global answer_product
-    global guess_product
-    if answer_product == guess_product:
-        print('Congrats You Won!!')
-        exit()
-    else:
-        print('You Have Lost. Try Again')
-        exit()
-        # have to figure out hwo to retry the guess section here.
+def Main():
+    print ('Welcome to Number Guess \nThe aim of the game is to guess 3 random numbers')
+    number_generator()
+    while True:
+        user_guess()
+        if guess_product == answer_product:
+            print('Congrats!! You Won!!')
+            return False
+        else:
+            print('Your answer is wrong. Try again!')
+            continue
 
-number_generator()
-user_guess()
-guess_check()
+#Run the game
+
+Main()
+
 
 
 
 """ Things to do:
-add retry after failure 
 add lives maybe?
 add difficulty select/levels
 clean up the code a little bit
