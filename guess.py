@@ -73,13 +73,3 @@ def Main():
 #Run the game
 
 Main()
-
-
-
-
-""" Things to do:
-add lives maybe?
-add difficulty select/levels
-clean up the code a little bit
-make functions modules just to get some hands on with that process """
-
