@@ -3,19 +3,22 @@ import time
 
 #Define 3 random numbers to be the answer and get product of the 3 number
 
-def number_generator():
-    num0 = random.randrange(2,9)
-    num1 = random.randrange(2,9)
-    num2 = random.randrange(2,9)
+def game_setup():
     global answer_product
+    global lives
+    num0 = random.randrange(2,difficulty)
+    num1 = random.randrange(2,difficulty)
+    num2 = random.randrange(2,difficulty)
     answer_product = num0 * num1 * num2
-    print('The product of the 3 Secret Numbers is: ' + str(answer_product))
+    lives = 3
+    print('The product of the 3 Secret Numbers is: ' + str(answer_product) + '\n')
+    print('You have ' + str(lives) + ' lives.\n')
 
 #take user guess for all 3 numbers and check if guess is numbers 
 
 def user_guess():
     while True:
-        guess0, guess1, guess2 = input('Enter your Guesses with a space serpating each Number').split()
+        guess0, guess1, guess2 = input('Enter your Guesses with a space serpating each Number:  ').split()
         try:
             global guess_product
             guess_product = int(guess0) * int(guess1) * int(guess2)
@@ -27,19 +30,45 @@ def user_guess():
             print('Please Enter only numbers')
             continue
             
-#check users guess aganist the correct answers
+#This is to set difficulty and change the number range based on the difficulty that the user selects.
+
+def difficulty_select():
+    global difficulty
+    while True:
+        print('Please Select a Diffculty Level')
+        user_input = input('1 2 or 3:  ')
+        if user_input not in ('1', '2', '3'):
+            print('Please make a Valid Selection')
+            continue
+        else:
+            if user_input == '1':
+                difficulty = 3
+            elif user_input == '2':
+                difficulty = 6
+            elif user_input == '3':
+                difficulty = 9
+        break
+
 
 def Main():
-    print ('Welcome to Number Guess \nThe aim of the game is to guess 3 random numbers')
-    number_generator()
-    while True:
+    global lives
+    print ('Welcome to Number Guess \n\nThe aim of the game is to guess 3 random numbers\n')
+    difficulty_select()
+    game_setup()
+    #Check if the users guess is correct
+    while lives > 0:
         user_guess()
         if guess_product == answer_product:
             print('Congrats!! You Won!!')
             return False
         else:
             print('Your answer is wrong. Try again!')
+            lives -= 1
+            print('You have ' + str(lives) + ' lives left.')
             continue
+    else:
+        print('You are out of Lives. \n GAME OVER.' )
+        exit()
 
 #Run the game
 
